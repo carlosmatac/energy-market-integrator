@@ -583,14 +583,20 @@ energy-market-integrator/
 
 ## 📝 Changelog
 
+### v1.0.0 (2025-02-05) 🎉
+- ✅ **COMPLETE** - All phases finished!
+- ✅ Grafana dashboard with 17 panels
+- ✅ Energy Prices: stat panels + time series
+- ✅ Plant Status: gauges (power, voltage, wind)
+- ✅ Control Signals: data table
+- ✅ API Health: success rate, latency, logs
+
 ### v0.3.0 (2025-02-05)
 - ✅ ETL Client fully implemented
 - ✅ OAuth2 Token Manager with auto-refresh
 - ✅ Pandas data transformation (json_normalize)
 - ✅ PostgreSQL async loader with upserts
 - ✅ Health metrics logging
-- ✅ All data flowing from API → PostgreSQL
-- 🔲 Grafana dashboards pending
 
 ### v0.2.0 (2025-02-05)
 - ✅ Mock Server implemented (FastAPI + OAuth2)
