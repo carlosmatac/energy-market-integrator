@@ -249,9 +249,9 @@ Access token generation via Client Credentials Flow.
 ```bash
 curl -X POST http://localhost:8000/oauth/token \
   -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "grant_type=client_credentials" \
-  -d "client_id=energy_trading_client" \
-  -d "client_secret=super_secret_key_2024"
+  -d "grant_type=password" \
+  -d "username=energy_trading_client" \
+  -d "password=super_secret_key_2024"
 ```
 
 **Response:**
@@ -583,11 +583,18 @@ energy-market-integrator/
 
 ## 📝 Changelog
 
+### v0.2.0 (2025-02-05)
+- ✅ Mock Server implemented (FastAPI + OAuth2)
+- ✅ All 3 trading endpoints operational
+- ✅ Docker infrastructure (PostgreSQL + Grafana)
+- ✅ Database schema with 4 tables and 3 views
+- 🔲 ETL Client pending
+- 🔲 Grafana dashboards pending
+
 ### v0.1.0 (2025-02-05)
 - ✅ Initial analysis of CKW specification
 - ✅ Architecture definition
 - ✅ Selection of trading-relevant endpoints
-- 🔲 Implementation pending
 
 ---
 
