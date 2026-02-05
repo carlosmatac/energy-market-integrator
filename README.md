@@ -583,13 +583,20 @@ energy-market-integrator/
 
 ## 📝 Changelog
 
+### v0.3.0 (2025-02-05)
+- ✅ ETL Client fully implemented
+- ✅ OAuth2 Token Manager with auto-refresh
+- ✅ Pandas data transformation (json_normalize)
+- ✅ PostgreSQL async loader with upserts
+- ✅ Health metrics logging
+- ✅ All data flowing from API → PostgreSQL
+- 🔲 Grafana dashboards pending
+
 ### v0.2.0 (2025-02-05)
 - ✅ Mock Server implemented (FastAPI + OAuth2)
 - ✅ All 3 trading endpoints operational
 - ✅ Docker infrastructure (PostgreSQL + Grafana)
 - ✅ Database schema with 4 tables and 3 views
-- 🔲 ETL Client pending
-- 🔲 Grafana dashboards pending
 
 ### v0.1.0 (2025-02-05)
 - ✅ Initial analysis of CKW specification
