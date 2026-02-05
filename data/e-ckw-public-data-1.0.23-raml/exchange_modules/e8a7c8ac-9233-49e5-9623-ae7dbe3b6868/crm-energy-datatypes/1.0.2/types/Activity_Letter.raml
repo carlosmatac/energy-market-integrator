@@ -1,0 +1,46 @@
+#%RAML 1.0 DataType
+displayName: Activity_Letter
+type: object
+properties:
+  id:
+    type: string
+    required: false
+    maxLength: 20
+    description: "Identifier of object"
+    example: "2323-43s3-5645f-4332"
+  customernumber:
+    type: number
+    required: true
+    description: "Number (Partner Number) of customer the letter is linked to."
+    #Change to accountid and include alternate key
+    example: 1244468
+  category:
+    type: string
+    enum:
+        - installation
+    required: false
+    description: "Choose an appropriate category. If there is none, leave empty."
+    example: "installation"
+  subject:
+    type: string
+    required: true
+    description: "Subject of the letter"
+    example: "Avisierung Zählerwechsel"
+  description:
+    type: string
+    required: false
+    description: "Main part of letter - letter summary"
+    example: " Zählerwechsel Avisierungsdatum: 24.01.2025"
+  url:
+    type: string
+    required: false
+    description: "URL of Archive-Document"
+  direction:
+    type: string
+    enum:
+        - inbound
+        - outbound
+    required: true
+    default: outbound
+    description: "Defines whether the letter was sent from CKW to customer (outbound) or if the customer sent the letter to CKW (inbound)"
+    example: outbound

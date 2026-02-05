@@ -1,0 +1,23 @@
+#%RAML 1.0 DataType
+displayName: UpsertResponse
+type: object
+properties:
+  crmId:
+    type: string
+    required: true
+    maxLength: 36
+    description: "Identifier of object"
+    example: "6B29FC40-CA47-1067-B31D-00DD010662DA"
+  message:
+    type: string
+    required: true
+    description: "Response message"
+    example: "Object has been created"
+  operation:
+    type: string
+    enum:
+        - created
+        - updated
+    required: true
+    description: "Executed operation"
+    example: "created"

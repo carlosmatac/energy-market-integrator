@@ -1,0 +1,114 @@
+#%RAML 1.0 DataType 
+displayName: EnergyworldBooking
+type: object
+properties:
+
+  name:
+    type: string
+    description: "Name of the group/visitor - if not provided, this will be concatinated from other properties"
+    maxLength: 200
+    example: "Pit's Birthday"
+  
+  attendeeCount:
+    type: number
+    required: true
+    minimum: 8
+    maximum: 1000
+    format: int16
+    description: "number of participants that will be part of the tour group"
+    example: 10
+
+  start:
+    type: datetime-only
+    required: true
+    example: 2025-07-04T14:00:00
+    description: "Start date with time of the booking slot."
+
+  end:
+    type: datetime-only
+    required: true
+    example: 2025-07-04T15:00:00
+    description: "End date with time of the booking slot."
+
+  durationremarks:
+    type: string
+    description: "Remarks regarding the duration"
+    example: "2 Stunden inkl. Apero"
+    maxLength: 300    
+
+  targetaudience:
+    enum: 
+      - Schule
+      - Firma/Verein
+      - Privat
+    example: "Schule"
+    description: "Defines the audience of the visitor group."
+
+  bookingtype:
+    type: string
+    enum: 
+     - "Musterunterricht"
+     - "Online"
+     - "Individuell"
+     - "Geburtstag"
+     - "Ferienpass"
+    required: false
+    description: "Typ der Führung/Unterrichts. Definieren die benötigten Ressourcen."
+    example: "Individuell"
+
+  grade:
+    type: string
+    enum: 
+      - "3. Primarklasse"
+      - "4. Primarklasse"
+      - "3./4. Primarklasse (Mischklasse)"
+      - "5. Primarklasse"
+      - "6. Primarklasse"      
+      - "5./6. Primarklasse (Mischklasse)"
+      - "1. Sekundarklasse / 7. Klasse"
+      - "2. Sekundarklasse / 8. Klasse"
+      - "3. Sekundarklasse / 9. Klasse"
+      - "Berufsschule"
+      - "Kantonsschule"
+      - "Hochschule/Uni"
+    required: false
+    description: "If booking is made for audience school (Schule), the grade might be essential to plan." 
+    example: "5. Primarklasse"
+
+  topics:
+    type: string
+    description: "List of interests/topics for the tour (comma separated)"
+    example: "Produktion, Effizienz"
+    maxLength: 200
+
+
+  message:
+    type: string
+    description: "Additional message submitted"
+    example: "Hurra, wird freuen uns!\n\nFreundliche Grüsse"
+    maxLength: 200  
+
+  company:
+    type: string
+    description: "Name of the company"
+
+  contact:
+    type: !include Contact.raml
+    required: true
+
+  address:
+    type: !include Address.raml
+    required: true   
+
+  ckw_travellingbycode:
+    type: string
+    enum:
+      - "Bike"
+      - "Auto"
+      - "Car/Bus"
+      - "Öffentlicher Verkehr"
+      - "Anderes"
+
+
+  
+  

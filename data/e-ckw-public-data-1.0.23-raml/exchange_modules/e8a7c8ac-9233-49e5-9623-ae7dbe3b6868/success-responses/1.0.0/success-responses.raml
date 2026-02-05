@@ -1,0 +1,65 @@
+#%RAML 1.0 Trait
+displayName: Success Responses
+responses:
+  200?:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "SUCCESS 200 OK",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url"?: {
+                "type": "string"
+              }
+            }
+          }
+        example: 
+          {
+            "message": "Success 200 Ok",
+            "description": "Resquest made Ok"
+          }
+  201?:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "SUCCESS 201 Created",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url"?: {
+                "type": "string"
+              }
+            }
+          }
+        example: 
+          {
+            "message": "Success 201 Created with ID: 11223344",
+            "description": "Resquest made Ok",
+            "url": "https://example.com/api/v1/data/11223344"
+          }
+         

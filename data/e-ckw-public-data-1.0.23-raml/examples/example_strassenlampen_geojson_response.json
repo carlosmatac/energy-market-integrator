@@ -1,0 +1,47 @@
+{
+    "öffentliche_Lampen": {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        [
+                            47.0726336719606,
+                            8.3643280141669
+                        ]
+                    ]
+                },
+                "properties": {
+                    "Lampen_id": "LAS47310",
+                    "Lampenname": "A6-1",
+                    "Gemeinde": "Adligenswil",
+                    "Teilgemeinde": "Adligenswil",
+                    "Strasse": "Alters und Gesundheitszentrum",
+                    "Betreiber": "CKW"
+                }
+            },
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        [
+                            47.0731925535508,
+                            8.36307753030017
+                        ]
+                    ]
+                },
+                "properties": {
+                    "Lampen_id": "LAS47315",
+                    "Lampenname": "A6-10",
+                    "Gemeinde": "Adligenswil",
+                    "Teilgemeinde": "Adligenswil",
+                    "Strasse": "Alters und Gesundheitszentrum",
+                    "Betreiber": "CKW"
+                }
+            }
+          ]
+    }
+}

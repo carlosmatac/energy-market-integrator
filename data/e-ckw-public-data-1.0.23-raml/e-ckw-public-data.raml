@@ -1,0 +1,298 @@
+#%RAML 1.0
+title: e-ckw-public-data
+protocols: [ HTTPS ]
+
+baseUri: https://e-ckw-public-data.de-c1.eu1.cloudhub.io/api/
+
+uses:
+  types: types-library.raml
+  crm-energy-types: /exchange_modules/e8a7c8ac-9233-49e5-9623-ae7dbe3b6868/crm-energy-datatypes/1.0.2/crm-energy-datatypes.raml
+
+types:
+  TourBooking: crm-energy-types.TourBooking
+  last:
+    type: string
+    enum: ["last", "latest"]
+
+traits:
+    error-responses: !include /exchange_modules/e8a7c8ac-9233-49e5-9623-ae7dbe3b6868/error-responses/1.0.0/error-responses.raml
+    success-responses: !include exchange_modules/e8a7c8ac-9233-49e5-9623-ae7dbe3b6868/success-responses/1.0.0/success-responses.raml
+    client-id-required: !include /exchange_modules/e8a7c8ac-9233-49e5-9623-ae7dbe3b6868/client-id-required/1.0.0/client-id-required.raml
+    jwt: !include /exchange_modules/e8a7c8ac-9233-49e5-9623-ae7dbe3b6868/jwt-trait/1.0.0/jwt-trait.raml
+    ratelimit: !include ratelimit.raml
+
+/v1:
+  
+  /energyworld:
+    /booking:
+      is: [error-responses , jwt]
+
+      displayName: "Energyworld Booking Request"
+      description: ""    
+      post: 
+        displayName: "Create a Booking"
+        description: "Place a request/booking for a tour at energy world"
+        body:
+          application/json:
+            type: TourBooking
+        responses:
+          201:
+            description: Booking Created
+            headers:
+              Content-Type:
+                type: string
+                pattern: "^[^'].*"
+                example:
+                  application/json
+            body:
+              application/json:
+                type: |
+                  {
+                    "title": "SUCCESS 201 Created",
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                example: 
+                  {
+                    "message": "Success 201 Created with ID: 11223344",
+                    "description": "Resquest made Ok",
+                    "url": "https://example.com/api/v1/data/11223344"
+                  }
+  /gebaeuderegister:
+    /buildings:
+      is: [error-responses]
+      description: "Alle Gebäude aus dem Gebäunde und Wohnungsregister, eingeschlossen sind Abgebrochene Gebäude. "
+      get:
+        description: "Eine Liste von Gebäuden abfragen."
+        queryParameters:
+          egid:
+            type: number
+            required: false
+          limit:
+            description: Beim Abfragen aller Daten kann mit limit und offset die Datenmenge eingeschränkt werden. Maximal werden 100'000 Einträge zurückgegeben. 
+            type: number
+            required: false
+          offset: 
+            description: Beim Abfragen aller Daten kann mit limit und offset die Datenmenge eingeschränkt werden. Maximal werden 100'000 Einträge zurückgegeben. 
+            type: number
+            required: false
+        responses:
+          200:
+            body:
+              application/json:
+    /dwellings:
+      is: [error-responses]
+      description: "Alle Wohnungen aus dem Gebäunde und Wohnungsregister, eingeschlossen sind Abgebrochene Wohnungen. "
+      get:
+        description: "Eine Liste von Wohnungen abfragen."
+        headers:
+          x-additional-lookup:
+            required: false
+            type: string
+            enum: [building]
+        queryParameters:
+          egid:
+            type: number
+            required: false
+          ewid:
+            type: number
+            required: false
+          limit:
+            description: Beim Abfragen aller Daten kann mit limit und offset die Datenmenge eingeschränkt werden. Maximal werden 100'000 Einträge zurückgegeben. 
+            type: number
+            required: false
+          offset: 
+            description: Beim Abfragen aller Daten kann mit limit und offset die Datenmenge eingeschränkt werden. Maximal werden 100'000 Einträge zurückgegeben. 
+            type: number
+            required: false
+        responses:
+          200:
+            body:
+              application/json:
+    /entrances:
+      is: [error-responses]
+      description: "Alle Eingänge aus dem Gebäude und Wohnungsregister."
+      get:
+        description: "Eine Liste von Wohnungen abfragen."
+        headers:
+          x-additional-lookup:
+            required: false
+            type: string
+            enum: [building]
+        queryParameters:
+          egid:
+            type: number
+            required: false
+          edid:
+            type: number
+            required: false
+          strname:
+            description: Strassen die mit Input beginnen
+            required: false
+          deinr:
+            description: Strassen nummer filtern, strname muss mitgeliefert werden
+            required: false
+          dplz4:
+            description: Postleitzahl filtern, strname muss mitgeliefert werden
+            required: false
+          dplzname:
+            description: Ortsbezeichnung filtern, strname muss mitgeliefert werden
+            required: false
+          limit:
+            description: Beim Abfragen aller Daten kann mit limit und offset die Datenmenge eingeschränkt werden. Maximal werden 100'000 Einträge zurückgegeben. 
+            type: number
+            required: false
+          offset: 
+            description: Beim Abfragen aller Daten kann mit limit und offset die Datenmenge eingeschränkt werden. Maximal werden 100'000 Einträge zurückgegeben. 
+            type: number
+            required: false
+        responses:
+          200:
+            body:
+              application/json:
+  /netzinformationen:
+    /energie/dynamische-preise:
+      is: [error-responses]
+      get:
+        description: >
+          CKW bietet einen dynamischen Netznutzungstarif als Wahltarif für Kunden im CKW-Versorgungsgebiet an. Dabei wird täglich eine Netzlastprognose für den darauffolgenden Tag erstellt. Basierend auf dieser Prognose werden die stündlichen Netztarife berechnet, welche über diesen Endpunkt als Viertelstundenwerte zurückgegeben werden. Weitere Details zum Produkt und den Tariftypen unter: https://www.ckw.ch/energie/strom/dynamischer-tarif-fuer-privatkunden-und-unternehmen/dynamischer-tarif-technische-voraussetzungen
+        queryParameters:
+          tariff_type:
+            type: string
+            enum: [grid,electricity,integrated,grid_usage]
+            required: false
+          tariff_name:
+            default: home_dynamic
+            description: 
+            type: string
+            enum: [home_dynamic,business_dynamic]
+            required: false
+          start_timestamp:
+            description: begin for prices in ISO 8601, by default start of the current day in local time (CET/CEST) is used, start and end may not be more than 30 days apart 
+            type: datetime
+            format: rfc3339
+            required: false
+          end_timestamp:
+            description: end for prices in ISO 8601, by default end of the current day in local time (CET/CEST) is used, start and end may not be more than 30 days apart
+            type: datetime
+            format: rfc3339
+            required: false
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/example_energyprices.json
+    /strassenlampen:
+      is: [error-responses]
+      get:
+        headers:
+          x-json-format:
+            example: 'geojson'
+            required: false
+        description: This interface returns public lamps in the CKW network with geo-coordinates.    
+        responses:
+          200:
+            headers:
+              x-ratelimit-limit:
+                description: The maximum available requests per window
+                type: number
+              x-ratelimit-remaining:
+                description: The amount of available quota
+                type: number
+              x-ratelimit-reset:
+                description: The remaining time, in milliseconds, until a new window starts
+                type: number
+            body:
+              application/json:
+                type: types.strassenlampen_data
+                example: !include examples/example_strassenlampen_data_response.json
+              application/json - Example geojson request:
+                type: types.strassenlampen_geojson
+                example: !include examples/example_strassenlampen_geojson_response.json
+      /stoerung:
+        is: [jwt, error-responses]
+        post:
+          body:
+            application/json:
+              type: object
+              properties:
+                LampenName:
+                  type: string
+                  required: true
+                  example: AS-1
+                Teilgemeinde:
+                  type: string
+                  required: true
+                  example: Adligenswil
+                Stoerungsart: 
+                  type: string
+                  required: true
+                  example: Text
+              example: !include examples/example_stoerung_body.json
+          responses:
+            201:
+              headers:
+                x-ratelimit-limit:
+                  description: The maximum available requests per window
+                  type: number
+                x-ratelimit-remaining:
+                  description: The amount of available quota
+                  type: number
+                x-ratelimit-reset:
+                  description: The remaining time, in milliseconds, until a new window starts
+                  type: number
+    /trasignale/{datum}:
+      is: [error-responses]
+      uriParameters:
+        datum:
+          type: date-only | last
+          example: "2015-12-31"
+      get:
+        description: Geräte, die Signale von einer Tonfrequenz-Rundsteuer-Anlage (TRA) erhalten, können vom Netzbetreiber ein- oder ausgestellt werden. Die API gibt Signale bis zum Vortag für ein bestimmtes Datum zurück. 
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/example_trasignale.json 
+    /kraftwerke/lutersarni/live:
+      get:
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/example_lutersarni_live.json
+  /vzev/checker/owner:
+    is: [jwt, error-responses]
+    post:
+      body:
+        application/json:
+          type: !include types/vzev-request.raml
+          example: !include examples/example_zev_request.json
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/example_zev_response.json
+  /leg/checker/owner:
+    is: [jwt, error-responses]
+    post:
+      body:
+        application/json:
+          type: !include types/leg-request.raml
+          example: !include examples/example_leg-check_request.json
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/example_leg-check_response.json
+

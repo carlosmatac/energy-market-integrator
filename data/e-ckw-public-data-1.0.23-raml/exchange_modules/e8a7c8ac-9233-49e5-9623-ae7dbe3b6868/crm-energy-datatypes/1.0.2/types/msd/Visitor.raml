@@ -1,0 +1,97 @@
+#%RAML 1.0 DataType
+description: "Group of people that have booked or requested a visit within the 'energyworld'."
+
+properties:
+  is_name:
+    type: string
+    maxLength: 100
+    description: "Name of the group - could also be concatinated from other information"
+    example: "Schule Ebikon, 3. Klasse"
+    required: true
+  is_numberofguests:
+    type: number
+    required: true
+    minimum: 0
+    maximum: 500
+    format: int16
+    description: "Number of guests"
+    example: 10
+  is_datestart:
+    type: datetime-only
+    required: true
+    example: 2025-07-04T14:00:00
+    description: "Start date/time for the booking timeslot"
+
+  is_dateend:
+    type: datetime-only
+    required: true
+    example: 2025-07-04T15:00:00
+    description: "End date/time for the booking timeslot"
+
+  ckw_targetaudiencecode:
+    type: number
+    enum: [502650000,502650001,502650002]
+    example: 502650000
+
+  ckw_typecode:
+    type: number | nil
+    enum: [502650000,502650001,502650002,502650003,502650004]
+    example: 502650001
+    description: "Typ der Führung/Unterrichts. Definieren die benötigten Ressourcen."
+    required: false
+
+  ckw_gradecode:
+    type: number
+    enum: [502650000,502650001,502650002,502650003,502650004,502650005,502650006,502650007,502650008,502650009,502650010,502650011]
+    example: 
+    description: "Stufe oder Zyklus der angemeldeten Schule."
+    required: false
+
+
+  ckw_topics:
+    type: string
+    description: List of interests/topics for the tour (comma separated)
+    example: "Produktion, Effizienz"
+    maxLength: 200
+
+  ckw_duration:
+    type: string
+    description: "Bemerkungen zur Durchführungs Dauer."
+    example: "2 Stunden inkl. Apero"
+    maxLength: 300
+
+  is_message:
+    type: string
+    description: "Multiline message from customer."   
+
+
+  # Contact Data - Technical Dept: Use ContactId instead (Prio 1)
+  is_firstname:
+    type: string
+    description: "Firstname of contact"    
+  is_lastname:
+    type: string
+    description: "Lastname of contact"  
+  emailaddress: 
+    type: string
+    description: "E-Mail of contact"  
+  is_phone1:
+    type: string
+    description: "Mobilephone of contact"  
+
+  # Account Data - Technical Dept: Use AccountId instead (Prio 2)
+  is_company:
+    type: string
+    description: "Company or name of school"
+
+  is_street1:
+    type: string
+    description: "Street with number"
+
+  is_postcode:
+    type: string
+    description: "Postalcode"
+
+  is_city:
+    type: string
+    description: "City"

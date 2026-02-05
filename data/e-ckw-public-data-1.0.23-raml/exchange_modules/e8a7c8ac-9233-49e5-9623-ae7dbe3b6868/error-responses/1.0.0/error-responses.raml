@@ -1,0 +1,366 @@
+#%RAML 1.0 Trait
+responses:
+  400:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "ERROR 400 Bad Request",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example: 
+          {
+            "message": "Error 400 Bad Request",
+            "description": "Resquets made incorrectly",
+            "url": ""
+          }
+          
+  403:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "ERROR 403 Forbidden",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example: 
+          message: Error 403 Forbidden
+          description: No access permission
+          url: ""
+          
+  404:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "ERROR 404 Resource Not Found",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example: 
+        
+          message: Error 404 Resource Not Found
+          description: Correct communication but the requested resource does not exist 
+          url: ""
+          
+  405:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "ERROR 405 Method Not Allowed",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example: 
+          message: ERROR 405 Method Not Allowed
+          description: Request made using an application method not supported by the purpose of the request 
+          url: ""
+          
+          
+  408:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "ERROR 408 Request Timeout",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example: 
+          message: Error 408 Request Timeout
+          description: The server has decided to close the connection instead of continuing to wait.
+          url: ""
+          
+          
+  413:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "ERROR 413 Request Entity too large",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example: 
+          message: ERROR 413 Request Entity too large
+          description: The request from the browser is too large and for that reason the server does not process it
+          url: ""
+          
+  415:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "Error 415 Unsupported Media Type",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example:        
+          message: Error 415 Unsupported Media Type
+          description: The browser request has a format that is not understood by the server and is not processed
+          url: ""
+  429:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "Error 429 Too Many Requests",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example:        
+          message: Error 429 Too Many Requests
+          description: Code indicates the user has sent too many requests in a given amount of time ("rate limiting")
+          url: ""        
+  500:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "ERROR 500 Internal Server Error",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example: 
+          message: ERROR 500 Internal Server Error
+          description: Error situations unrelated to the nature of the web server. The server cannot be more specific about what the problem
+          url: ""
+          
+  501:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "Error 501 Not Implemented",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example:
+          
+          message: Error 501 Not Implemented
+          description: The server does not support any functionality needed to respond to the browser request.
+          url: ""
+          
+  502:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "Error 502 Bad Gateway",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example:         
+          messege: Error 502 Bad Gateway
+          description: The server is acting as a proxy or gateway and has received an invalid response from the other server, so it cannot respond correctly to the browser request
+          url: ""
+          
+          
+  503:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "Error 503 Service Unavailable",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        example:
+          message: Error 503 Service Unavailable
+          description: The server cannot respond to the browser request because it is congested or undergoing maintenance
+          url: ""

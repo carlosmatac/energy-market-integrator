@@ -1,0 +1,64 @@
+#%RAML 1.0 Library
+usage:
+
+
+types:
+  strassenlampen_data:
+    type: array
+    items:
+      properties:
+        Lampen_id: 
+          type: string
+          example: LAS47310
+        Lampenname:
+          type: string
+          example: A6-1
+        Gemeinde:
+          type: string
+          example: Adligenswil
+        Teilgemeinde:
+          type: string
+          example: Adligenswil
+        Strasse:
+          type: string
+          example: Alters und Gesundheitszentrum
+        Längengrad:
+          type: number
+          format: double
+          example: 47.0726336719606
+        Breitengrad:
+          type: number
+          format: double
+          example: 8.3643280141669
+        Betreiber:
+          type: string
+          example: CKW
+
+  strassenlampen_geojson:
+    type: object
+    properties:
+      öffentliche_Lampen:
+        type: object
+        properties:
+          "type":
+            type: string
+            example: FeatureCollection | Feature
+          features:
+            type: array
+            items:
+              properties:
+                "type":
+                  type: string
+                  example: Feature
+                geometry:
+                  type: object
+                  properties:
+                    "type":
+                      type: string
+                      example: Point
+                    coordinates:
+                      type: array
+                      items:
+                        type: array
+                        example: [47.0726336719606,8.3643280141669]
+  

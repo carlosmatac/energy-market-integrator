@@ -1,0 +1,29 @@
+#%RAML 1.0
+title: healthcheck
+/health:
+  get:
+    headers:
+      x-session-id:
+        description: "Session id"
+        type: string
+        required: false
+    body: {}
+    responses:
+      "200":
+        body:
+          application/json:
+            type: | 
+              {
+                "title": "health-check Response",
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            example: 
+              {
+                "message": "health-check running"
+              }
+        

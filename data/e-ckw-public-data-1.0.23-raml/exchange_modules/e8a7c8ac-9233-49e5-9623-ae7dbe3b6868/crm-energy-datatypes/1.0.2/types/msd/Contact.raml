@@ -1,0 +1,26 @@
+#%RAML 1.0 DataType
+
+type: object
+properties:
+  firstname:
+    type: string
+    required: true
+    maxLength: 50
+    example: "Hans"
+
+  lastname:
+    type: string
+    required: true   
+    maxLength: 50 
+    example: "Muster"
+
+  emailaddress1:
+    type: string
+    maxLength: 100
+    pattern: ^.+@.+\..+$
+    example: "hans.muster@email.tst"
+
+  mobilephone:
+    type: string
+    maxLength: 50
+    example: "+41791231212"

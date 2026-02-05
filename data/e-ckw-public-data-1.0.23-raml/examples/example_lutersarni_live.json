@@ -1,0 +1,15 @@
+{
+  "zeitstempel": "2025-12-03T14:40+01:00",
+  "betriebsstatus": "in Betrieb",
+  "spannung": "20.697998",
+  "wirkleistung": "0.079999998",
+  "blindleistung": "-0.02",
+  "windgeschwindigkeit": "12.959999",
+  "einheiten": {
+    "strom": "A",
+    "spannung": "kV",
+    "wirkleistung": "MW",
+    "blindleistung": "Mvar",
+    "windgeschwindigkeit": "km/h"
+  }
+}

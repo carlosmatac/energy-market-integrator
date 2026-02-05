@@ -1,0 +1,18 @@
+{
+  "owner": "CH1003601234500000000000000000000",
+  "ratio":  0.1,
+  "notice": "Notice text example",
+  "conformant": false,
+  "participants": [
+    {
+      "meterid": "CH1003601234500000000000000000001",
+      "notice": "Nicht gleiche Trafostation",
+      "conformant": false
+    },
+    {
+      "zaehlpunkt_id": "CH1003601234500000000000000000002",
+      "notice": "Selber Trafo",
+      "conformant": true
+    }
+  ]
+}

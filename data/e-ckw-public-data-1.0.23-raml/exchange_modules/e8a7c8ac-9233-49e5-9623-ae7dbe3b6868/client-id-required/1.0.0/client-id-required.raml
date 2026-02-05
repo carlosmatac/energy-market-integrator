@@ -1,0 +1,40 @@
+#%RAML 1.0 Trait
+headers:
+  client_id:
+    type: string
+    pattern: "^[^'].*"
+    example: "abc-def"
+  client_secret:
+    type: string
+    pattern: "^[^'].*"
+    example: "abc-def"
+responses:
+  401:
+    headers:
+      Content-Type:
+        type: string
+        pattern: "^[^'].*"
+        example:
+          application/json
+    body:
+      application/json:
+        type: |
+          {
+            "title": "Error 401 Service Unauthorized",
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url":{
+                "type": "string"
+              }
+            }
+          }
+        example:
+          message: Error 401 Unauthorized
+          description: Unauthorized, The client_id or client_secret are not valid or the client does not have access.
+          url: ""

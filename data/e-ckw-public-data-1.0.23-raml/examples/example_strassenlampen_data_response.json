@@ -1,0 +1,22 @@
+[
+  {
+    "Lampen_id": "LAS47310",
+    "Lampenname": "A6-1",
+    "Gemeinde": "Adligenswil",
+    "Teilgemeinde": "Adligenswil",
+    "Strasse": "Alters und Gesundheitszentrum",
+    "Längengrad": 47.0726336719606,
+    "Breitengrad": 8.3643280141669,
+    "Betreiber": "CKW"
+  },
+  {
+    "Lampen_id": "LAS47315",
+    "Lampenname": "A6-10",
+    "Gemeinde": "Adligenswil",
+    "Teilgemeinde": "Adligenswil",
+    "Strasse": "Alters und Gesundheitszentrum",
+    "Längengrad": 47.0731925535508,
+    "Breitengrad": 8.36307753030017,
+    "Betreiber": "CKW"
+  }
+]

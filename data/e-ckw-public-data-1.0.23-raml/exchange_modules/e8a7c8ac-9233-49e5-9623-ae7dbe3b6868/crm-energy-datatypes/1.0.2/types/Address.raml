@@ -1,0 +1,21 @@
+#%RAML 1.0 DataType
+displayName: Address
+type: object
+properties:
+  street:
+    type: string
+    required: true
+    description: "Streetname with number"
+    example: "Sagenhofstrasse 23"
+  postalcode:
+    type: number
+    format: int16
+    required: true    
+    example: 6030 
+
+  city:
+    type: string
+    example: "Ebikon"
+
+
+  
