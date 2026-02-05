@@ -1,0 +1,1511 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "description": "Real-time monitoring of energy trading data: prices, plant status, and API health",
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 1,
+    "id": null,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 100,
+            "panels": [],
+            "title": "⚡ Energy Prices",
+            "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Current integrated energy price (grid + electricity)",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 0.25
+                            },
+                            {
+                                "color": "red",
+                                "value": 0.35
+                            }
+                        ]
+                    },
+                    "unit": "currencyUSD"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 6,
+                "x": 0,
+                "y": 1
+            },
+            "id": 1,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT value FROM energy_prices WHERE tariff_type = 'integrated' ORDER BY start_timestamp DESC LIMIT 1;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Current Integrated Price",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Current grid tariff",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "blue",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 0.15
+                            },
+                            {
+                                "color": "red",
+                                "value": 0.2
+                            }
+                        ]
+                    },
+                    "unit": "currencyUSD"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 6,
+                "x": 6,
+                "y": 1
+            },
+            "id": 2,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT value FROM energy_prices WHERE tariff_type = 'grid' ORDER BY start_timestamp DESC LIMIT 1;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Current Grid Price",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Current electricity commodity price",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "purple",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 0.1
+                            },
+                            {
+                                "color": "red",
+                                "value": 0.15
+                            }
+                        ]
+                    },
+                    "unit": "currencyUSD"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 6,
+                "x": 12,
+                "y": 1
+            },
+            "id": 3,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT value FROM energy_prices WHERE tariff_type = 'electricity' ORDER BY start_timestamp DESC LIMIT 1;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Current Electricity Price",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Total price records in database",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "text",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 6,
+                "x": 18,
+                "y": 1
+            },
+            "id": 4,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT count(*) as total FROM energy_prices;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Total Price Records",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "All tariff types over time (15-minute intervals)",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "CHF/kWh",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "opacity",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "currencyUSD"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "integrated"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "orange",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "grid"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "electricity"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "purple",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "grid_usage"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "green",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 10,
+                "w": 24,
+                "x": 0,
+                "y": 6
+            },
+            "id": 5,
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "mean",
+                        "max",
+                        "min"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "desc"
+                }
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "time_series",
+                    "rawQuery": true,
+                    "rawSql": "SELECT \n  start_timestamp as time,\n  tariff_type as metric,\n  value\nFROM energy_prices\nWHERE start_timestamp >= NOW() - INTERVAL '7 days'\nORDER BY start_timestamp;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Energy Prices Over Time (Quarter-Hourly)",
+            "type": "timeseries"
+        },
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 16
+            },
+            "id": 101,
+            "panels": [],
+            "title": "🏭 Power Plant Status",
+            "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Current operational status of the plant",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [
+                        {
+                            "options": {
+                                "running": {
+                                    "color": "green",
+                                    "index": 0,
+                                    "text": "✓ RUNNING"
+                                }
+                            },
+                            "type": "value"
+                        },
+                        {
+                            "options": {
+                                "stopped": {
+                                    "color": "red",
+                                    "index": 1,
+                                    "text": "✗ STOPPED"
+                                }
+                            },
+                            "type": "value"
+                        },
+                        {
+                            "options": {
+                                "maintenance": {
+                                    "color": "yellow",
+                                    "index": 2,
+                                    "text": "⚠ MAINTENANCE"
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "text",
+                                "value": null
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 6,
+                "x": 0,
+                "y": 17
+            },
+            "id": 6,
+            "options": {
+                "colorMode": "background",
+                "graphMode": "none",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT operational_status FROM plant_status ORDER BY timestamp DESC LIMIT 1;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Plant Status",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Active power generation in megawatts",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "max": 1,
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 0.02
+                            },
+                            {
+                                "color": "green",
+                                "value": 0.05
+                            }
+                        ]
+                    },
+                    "unit": "megwatt"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 6,
+                "y": 17
+            },
+            "id": 7,
+            "options": {
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT active_power_mw FROM plant_status ORDER BY timestamp DESC LIMIT 1;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Active Power",
+            "type": "gauge"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Grid voltage in kilovolts",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "max": 25,
+                    "min": 15,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 19
+                            },
+                            {
+                                "color": "green",
+                                "value": 20
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 22
+                            },
+                            {
+                                "color": "red",
+                                "value": 23
+                            }
+                        ]
+                    },
+                    "unit": "kvolt"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 12,
+                "y": 17
+            },
+            "id": 8,
+            "options": {
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT voltage_kv FROM plant_status ORDER BY timestamp DESC LIMIT 1;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Voltage",
+            "type": "gauge"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Wind speed at plant location",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "max": 50,
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "blue",
+                                "value": null
+                            },
+                            {
+                                "color": "green",
+                                "value": 10
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 30
+                            },
+                            {
+                                "color": "red",
+                                "value": 40
+                            }
+                        ]
+                    },
+                    "unit": "velocitykmh"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 18,
+                "y": 17
+            },
+            "id": 9,
+            "options": {
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT wind_speed_kmh FROM plant_status ORDER BY timestamp DESC LIMIT 1;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Wind Speed",
+            "type": "gauge"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Reactive power in Mvar",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": -0.05
+                            },
+                            {
+                                "color": "red",
+                                "value": 0.05
+                            }
+                        ]
+                    },
+                    "unit": "mvolt"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 6,
+                "x": 0,
+                "y": 21
+            },
+            "id": 10,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT reactive_power_mvar FROM plant_status ORDER BY timestamp DESC LIMIT 1;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Reactive Power",
+            "type": "stat"
+        },
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 25
+            },
+            "id": 102,
+            "panels": [],
+            "title": "📊 Control Signals (TRA)",
+            "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "TRA demand-side control signals",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "signal_name"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 100
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "description"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 150
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 24,
+                "x": 0,
+                "y": 26
+            },
+            "id": 11,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": true
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT \n  signal_name,\n  description,\n  signal_date,\n  start_timestamp::time as start_time,\n  end_timestamp::time as end_time,\n  (end_timestamp - start_timestamp) as duration\nFROM control_signals\nORDER BY signal_date DESC, start_timestamp DESC\nLIMIT 20;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Recent Control Signals",
+            "type": "table"
+        },
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 32
+            },
+            "id": 103,
+            "panels": [],
+            "title": "🔌 API Health Monitor",
+            "type": "row"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Overall API success rate in the last 24 hours",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "max": 100,
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 90
+                            },
+                            {
+                                "color": "green",
+                                "value": 99
+                            }
+                        ]
+                    },
+                    "unit": "percent"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 6,
+                "x": 0,
+                "y": 33
+            },
+            "id": 12,
+            "options": {
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT \n  ROUND(100.0 * SUM(CASE WHEN success THEN 1 ELSE 0 END) / COUNT(*), 2) as success_rate\nFROM api_health_logs\nWHERE checked_at > NOW() - INTERVAL '24 hours';",
+                    "refId": "A"
+                }
+            ],
+            "title": "API Success Rate (24h)",
+            "type": "gauge"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Total successful API calls",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 4,
+                "x": 6,
+                "y": 33
+            },
+            "id": 13,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT COUNT(*) as count FROM api_health_logs WHERE success = true;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Successful Calls",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Total failed API calls",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 1
+                            },
+                            {
+                                "color": "red",
+                                "value": 5
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 4,
+                "x": 10,
+                "y": 33
+            },
+            "id": 14,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT COUNT(*) as count FROM api_health_logs WHERE success = false;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Failed Calls",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Average response time across all endpoints",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 100
+                            },
+                            {
+                                "color": "red",
+                                "value": 500
+                            }
+                        ]
+                    },
+                    "unit": "ms"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 4,
+                "x": 6,
+                "y": 36
+            },
+            "id": 15,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "mean"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT ROUND(AVG(response_time_ms), 2) as avg_time FROM api_health_logs;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Avg Response Time",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "Last health check timestamp",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "text",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "dateTimeAsLocal"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 4,
+                "x": 10,
+                "y": 36
+            },
+            "id": 16,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT MAX(checked_at) as last_check FROM api_health_logs;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Last Check",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "energy-postgres"
+            },
+            "description": "API health summary by endpoint",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "success_rate"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "mode": "gradient",
+                                    "type": "gauge"
+                                }
+                            },
+                            {
+                                "id": "max",
+                                "value": 100
+                            },
+                            {
+                                "id": "min",
+                                "value": 0
+                            },
+                            {
+                                "id": "thresholds",
+                                "value": {
+                                    "mode": "absolute",
+                                    "steps": [
+                                        {
+                                            "color": "red",
+                                            "value": null
+                                        },
+                                        {
+                                            "color": "yellow",
+                                            "value": 90
+                                        },
+                                        {
+                                            "color": "green",
+                                            "value": 99
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "avg_response_time_ms"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "mode": "gradient",
+                                    "type": "gauge"
+                                }
+                            },
+                            {
+                                "id": "max",
+                                "value": 100
+                            },
+                            {
+                                "id": "thresholds",
+                                "value": {
+                                    "mode": "absolute",
+                                    "steps": [
+                                        {
+                                            "color": "green",
+                                            "value": null
+                                        },
+                                        {
+                                            "color": "yellow",
+                                            "value": 50
+                                        },
+                                        {
+                                            "color": "red",
+                                            "value": 100
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 10,
+                "x": 14,
+                "y": 33
+            },
+            "id": 17,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": true
+            },
+            "pluginVersion": "10.2.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "energy-postgres"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT * FROM v_api_health_summary ORDER BY endpoint;",
+                    "refId": "A"
+                }
+            ],
+            "title": "Endpoint Health Summary",
+            "type": "table"
+        }
+    ],
+    "refresh": "30s",
+    "schemaVersion": 38,
+    "tags": [
+        "energy",
+        "trading",
+        "monitoring"
+    ],
+    "templating": {
+        "list": []
+    },
+    "time": {
+        "from": "now-24h",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "Energy Trading Monitor",
+    "uid": "energy-trading-monitor",
+    "version": 1,
+    "weekStart": ""
+}

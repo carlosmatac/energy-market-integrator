@@ -9,14 +9,14 @@ datasources:
   - name: PostgreSQL
     type: postgres
     uid: energy-postgres
-    url: postgres:5432
-    user: ${POSTGRES_USER:-energy_user}
-    database: ${POSTGRES_DB:-energy_trading}
+    url: energy_postgres:5432
+    user: energy_user
+    database: energy_trading
     isDefault: true
     access: proxy
     
     secureJsonData:
-      password: ${POSTGRES_PASSWORD:-energy_secret_2024}
+      password: energy_secret_2024
     
     jsonData:
       # PostgreSQL version (for query optimization)
@@ -34,3 +34,4 @@ datasources:
       timescaledb: false
     
     editable: false
+
