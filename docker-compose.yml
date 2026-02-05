@@ -1,0 +1,78 @@
+# Energy Trading Connectivity Monitor - Docker Compose
+# =====================================================
+# This file orchestrates all infrastructure services:
+# - PostgreSQL: Time series and health logs storage
+# - Grafana: Visualization and alerting dashboards
+
+services:
+  # ===========================================
+  # PostgreSQL Database
+  # ===========================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: energy_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-energy_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-energy_secret_2024}
+      POSTGRES_DB: ${POSTGRES_DB:-energy_trading}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-energy_user} -d ${POSTGRES_DB:-energy_trading}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - energy_network
+
+  # ===========================================
+  # Grafana Visualization
+  # ===========================================
+  grafana:
+    image: grafana/grafana:10.2.3
+    container_name: energy_grafana
+    restart: unless-stopped
+    environment:
+      # Admin credentials
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+      # Server configuration
+      GF_SERVER_ROOT_URL: ${GRAFANA_ROOT_URL:-http://localhost:3000}
+      GF_SERVER_SERVE_FROM_SUB_PATH: "false"
+      # Anonymous access (disabled for security)
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      # Disable user signup
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      # Install plugins if needed
+      GF_INSTALL_PLUGINS: ""
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - energy_network
+
+# ===========================================
+# Volumes for data persistence
+# ===========================================
+volumes:
+  postgres_data:
+    name: energy_postgres_data
+  grafana_data:
+    name: energy_grafana_data
+
+# ===========================================
+# Network for inter-service communication
+# ===========================================
+networks:
+  energy_network:
+    name: energy_trading_network
+    driver: bridge

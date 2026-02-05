@@ -1,0 +1,36 @@
+# Grafana Datasource Provisioning - PostgreSQL
+# =============================================
+# This file automatically configures the PostgreSQL connection
+# when Grafana starts. No manual configuration needed!
+
+apiVersion: 1
+
+datasources:
+  - name: PostgreSQL
+    type: postgres
+    uid: energy-postgres
+    url: postgres:5432
+    user: ${POSTGRES_USER:-energy_user}
+    database: ${POSTGRES_DB:-energy_trading}
+    isDefault: true
+    access: proxy
+    
+    secureJsonData:
+      password: ${POSTGRES_PASSWORD:-energy_secret_2024}
+    
+    jsonData:
+      # PostgreSQL version (for query optimization)
+      postgresVersion: 1500  # PostgreSQL 15
+      
+      # SSL mode (disable for local development)
+      sslmode: disable
+      
+      # Connection limits
+      maxOpenConns: 10
+      maxIdleConns: 5
+      connMaxLifetime: 14400  # 4 hours in seconds
+      
+      # Time column for time series queries
+      timescaledb: false
+    
+    editable: false

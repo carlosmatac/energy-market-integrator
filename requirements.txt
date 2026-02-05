@@ -1,0 +1,65 @@
+# Energy Trading Connectivity Monitor - Python Dependencies
+# =========================================================
+
+# ===========================================
+# Web Framework (Mock Server)
+# ===========================================
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.6          # Required for OAuth2 form data
+
+# ===========================================
+# Authentication
+# ===========================================
+python-jose[cryptography]>=3.3.0 # JWT token handling
+passlib[bcrypt]>=1.7.4           # Password hashing (if needed)
+
+# ===========================================
+# HTTP Client (ETL Client)
+# ===========================================
+httpx>=0.26.0                    # Async HTTP client
+
+# ===========================================
+# Data Processing
+# ===========================================
+pandas>=2.1.0                    # Data manipulation and normalization
+numpy>=1.26.0                    # Numerical operations (Pandas dependency)
+
+# ===========================================
+# Database
+# ===========================================
+psycopg[binary]>=3.1.0           # PostgreSQL async driver
+sqlalchemy>=2.0.0                # ORM (optional, for complex queries)
+
+# ===========================================
+# Scheduling
+# ===========================================
+apscheduler>=3.10.0              # Task scheduling
+
+# ===========================================
+# Configuration & Environment
+# ===========================================
+pydantic>=2.5.0                  # Data validation and settings
+pydantic-settings>=2.1.0         # Environment variable management
+python-dotenv>=1.0.0             # .env file loading
+
+# ===========================================
+# Logging & Monitoring
+# ===========================================
+structlog>=24.1.0                # Structured logging
+
+# ===========================================
+# Development & Testing
+# ===========================================
+pytest>=7.4.0                    # Testing framework
+pytest-asyncio>=0.23.0           # Async test support
+pytest-cov>=4.1.0                # Coverage reporting
+httpx>=0.26.0                    # Also used for test client
+
+# ===========================================
+# Code Quality (optional, for development)
+# ===========================================
+black>=24.1.0                    # Code formatting
+isort>=5.13.0                    # Import sorting
+mypy>=1.8.0                      # Type checking
+ruff>=0.1.0                      # Fast linter
